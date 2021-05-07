@@ -12,7 +12,7 @@ import coil.size.Scale
 import com.guvyerhopkins.livefront.R
 import com.guvyerhopkins.livefront.network.Photo
 
-class PhotoGridAdapter(private val onImagePressed: (String, ImageView) -> Unit) :
+class PhotoGridAdapter(private val onImagePressed: (Photo, ImageView) -> Unit) :
     PagedListAdapter<Photo, PhotoGridAdapter.PhotoGridViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(
@@ -44,7 +44,7 @@ class PhotoGridAdapter(private val onImagePressed: (String, ImageView) -> Unit) 
                 placeholder(R.drawable.ic_image_placeholder)
             }
 
-            imageView.setOnClickListener { onImagePressed.invoke(photo.src.large, imageView) }
+            imageView.setOnClickListener { onImagePressed.invoke(photo, imageView) }
         }
     }
 

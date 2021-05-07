@@ -1,8 +1,8 @@
 package com.guvyerhopkins.livefront.network
 
-import com.google.gson.InstanceCreator
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.lang.reflect.Type
+import kotlinx.parcelize.Parcelize
 
 data class PexelsResponse(
     @SerializedName("next_page")
@@ -17,6 +17,7 @@ data class PexelsResponse(
     val totalResults: Int = 0
 )
 
+@Parcelize
 data class Photo(
     @SerializedName("avg_color")
     val avgColor: String = "",
@@ -38,8 +39,9 @@ data class Photo(
     val url: String = "",
     @SerializedName("width")
     val width: Int = 0
-)
+) : Parcelable
 
+@Parcelize
 data class Src(
     @SerializedName("landscape")
     val landscape: String = "",
@@ -57,11 +59,4 @@ data class Src(
     val small: String = "",
     @SerializedName("tiny")
     val tiny: String = ""
-)
-
-class PexelsResponseAdapter :
-    InstanceCreator<PexelsResponse> {
-    override fun createInstance(type: Type?): PexelsResponse {
-        return PexelsResponse()
-    }
-}
+) : Parcelable

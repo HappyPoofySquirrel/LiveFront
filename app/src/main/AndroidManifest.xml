@@ -22,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.guvyerhopkins.livefront.ui.detail.ImageDetailActivity" />
+        <activity
+            android:name="com.guvyerhopkins.livefront.ui.detail.ImageDetailActivity"
+            android:parentActivityName=".ui.search.SearchActivity" />
     </application>
 
 </manifest>

@@ -3,4 +3,6 @@
     <string name="search_hint">pugs</string>
     <string name="no_search_results">No results. Please try a new search.</string>
     <string name="search_error">An error has occured when fetching cards</string>
+    <string name="image_photographer">"Photographer: %1$s"</string>
+    <string name="image_photographer_url">"Photographer Url: %1$s"</string>
 </resources>

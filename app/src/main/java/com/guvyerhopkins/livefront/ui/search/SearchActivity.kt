@@ -19,10 +19,10 @@ class SearchActivity : AppCompatActivity() {
      * Todo Bonus
      * handle no internet
      * support portrait and landscape
-     * Write documentation using KDoc
+     * Write documentation
+     * Add swipe to refresh
      * More Unit tests
      * Night mode
-     * Loading list item for adapter when next pagination call is being made
      * Shared element transition for image press to detail view
      */
     private lateinit var searchViewModel: SearchViewModel
@@ -38,15 +38,15 @@ class SearchActivity : AppCompatActivity() {
 
         searchViewModel =
             ViewModelProvider(this, SearchViewModelFactory()).get(SearchViewModel::class.java)
-        val adapter = PhotoGridAdapter { url, imageView ->
+        val adapter = PhotoGridAdapter { photo, imageView ->
             //keep imageview parameter for use with a shared element transition
-            startActivity(ImageDetailActivity.createIntent(this, url))
+            startActivity(ImageDetailActivity.createIntent(this, photo))
         }
         val recyclerView = findViewById<RecyclerView>(R.id.search_rv)
         recyclerView.adapter = adapter
 
         searchViewModel.photos.observe(this, { photos ->
-            if (photos.isNullOrEmpty()) {
+            if (photos.isNullOrEmpty()) { //todo this is showing on start of the app
                 Toast.makeText(this, getString(R.string.no_search_results), Toast.LENGTH_LONG)
                     .show()
             }
