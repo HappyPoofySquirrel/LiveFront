@@ -5,8 +5,8 @@ import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.guvyerhopkins.livefront.network.PexelsDataSourceFactory
-import com.guvyerhopkins.livefront.network.State
+import com.guvyerhopkins.livefront.core.network.NetworkState
+import com.guvyerhopkins.livefront.core.network.PexelsDataSourceFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -17,7 +17,7 @@ class SearchViewModel(
     private val dataSourceFactory: PexelsDataSourceFactory = PexelsDataSourceFactory(scope = ioScope)
 ) : ViewModel() {
 
-    val networkState: LiveData<State>? =
+    val networkState: LiveData<NetworkState>? =
         switchMap(dataSourceFactory.source) { it.getNetworkState() }
 
     val photos = LivePagedListBuilder(

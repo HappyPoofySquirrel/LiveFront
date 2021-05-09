@@ -1,4 +1,4 @@
-package com.guvyerhopkins.livefront.network
+package com.guvyerhopkins.livefront.core.network
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource

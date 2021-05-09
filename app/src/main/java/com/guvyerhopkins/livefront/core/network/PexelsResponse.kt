@@ -1,4 +1,4 @@
-package com.guvyerhopkins.livefront.network
+package com.guvyerhopkins.livefront.core.network
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

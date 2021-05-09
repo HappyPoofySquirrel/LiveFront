@@ -1,6 +1,6 @@
 package com.guvyerhopkins.livefront.ui.search
 
-import com.guvyerhopkins.livefront.network.PexelsDataSourceFactory
+import com.guvyerhopkins.livefront.core.network.PexelsDataSourceFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.junit.Before

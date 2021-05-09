@@ -2,13 +2,16 @@ package com.guvyerhopkins.livefront.ui.detail
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.guvyerhopkins.livefront.R
-import com.guvyerhopkins.livefront.network.Photo
+import com.guvyerhopkins.livefront.core.extensions.clickableSpan
+import com.guvyerhopkins.livefront.core.network.Photo
 import com.jsibbold.zoomage.ZoomageView
+
 
 private const val IMAGE_KEY = "IMAGE_KEY"
 
@@ -31,9 +34,15 @@ class ImageDetailActivity : AppCompatActivity() {
         findViewById<ZoomageView>(R.id.details_iv).load(photo.src.large)
         findViewById<TextView>(R.id.details_photographer_tv).text =
             getString(R.string.image_photographer, photo.photographer)
-        findViewById<TextView>(R.id.details_photographer_url_tv).text = getString(
+        val photographerUrlTv = findViewById<TextView>(R.id.details_photographer_url_tv)
+        photographerUrlTv.text = getString(
             R.string.image_photographer_url,
             photo.photographerUrl
         )
+
+        photographerUrlTv.clickableSpan(photo.photographerUrl) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(photo.photographerUrl)))
+        }
+
     }
 }

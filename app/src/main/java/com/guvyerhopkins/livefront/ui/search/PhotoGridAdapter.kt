@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
 import com.guvyerhopkins.livefront.R
-import com.guvyerhopkins.livefront.network.Photo
+import com.guvyerhopkins.livefront.core.network.Photo
 
 class PhotoGridAdapter(private val onImagePressed: (Photo, ImageView) -> Unit) :
     PagedListAdapter<Photo, PhotoGridAdapter.PhotoGridViewHolder>(DiffCallback) {

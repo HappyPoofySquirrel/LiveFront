@@ -1,4 +1,4 @@
-package com.guvyerhopkins.livefront.network
+package com.guvyerhopkins.livefront.core.network
 
 import com.guvyerhopkins.livefront.BuildConfig.PEXELS_API_BASE_URL
 import com.guvyerhopkins.livefront.BuildConfig.PEXELS_API_KEY

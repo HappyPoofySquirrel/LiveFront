@@ -1,4 +1,4 @@
-package com.guvyerhopkins.livefront.network
+package com.guvyerhopkins.livefront.core.network
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,7 +10,7 @@ class PexelsDataSource(private val query: String, private val scope: CoroutineSc
     PageKeyedDataSource<Int, Photo>() {
 
     private val repo = PexelsRepository(PexelsApi.retrofitService)
-    private val networkState = MutableLiveData<State>()
+    private val networkState = MutableLiveData<NetworkState>()
     private var supervisorJob = SupervisorJob()
 
     override fun loadInitial(
@@ -37,19 +37,23 @@ class PexelsDataSource(private val query: String, private val scope: CoroutineSc
     }
 
     private fun executeQuery(page: Int, perPage: Int, callback: (List<Photo>) -> Unit) {
-        networkState.postValue(State.LOADING)
+        networkState.postValue(NetworkState.LOADING)
         scope.launch(getJobErrorHandler() + supervisorJob) {
             delay(200) // To handle user is still typing
             val photos = repo.getPhotos(page, perPage, query)
 
-            networkState.postValue(State.SUCCESS)
+            if (photos.isEmpty()) {
+                networkState.postValue(NetworkState.ZERORESULTS)
+            }
+
+            networkState.postValue(NetworkState.SUCCESS)
             callback(photos)
         }
     }
 
     private fun getJobErrorHandler() = CoroutineExceptionHandler { _, e ->
         Log.e(PexelsResponse::class.java.simpleName, "An error happened: $e")
-        networkState.postValue(State.ERROR)
+        networkState.postValue(NetworkState.ERROR)
     }
 
     override fun invalidate() {
@@ -59,6 +63,6 @@ class PexelsDataSource(private val query: String, private val scope: CoroutineSc
 
     fun refresh() = this.invalidate()
 
-    fun getNetworkState(): LiveData<State> =
+    fun getNetworkState(): LiveData<NetworkState> =
         networkState
 }

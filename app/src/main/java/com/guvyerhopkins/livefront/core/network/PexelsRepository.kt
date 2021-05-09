@@ -1,4 +1,4 @@
-package com.guvyerhopkins.livefront.network
+package com.guvyerhopkins.livefront.core.network
 
 class PexelsRepository(private val service: PexelsApiService) {
 

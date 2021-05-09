@@ -10,7 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.guvyerhopkins.livefront.R
-import com.guvyerhopkins.livefront.network.State
+import com.guvyerhopkins.livefront.core.network.NetworkState
 import com.guvyerhopkins.livefront.ui.detail.ImageDetailActivity
 
 class SearchActivity : AppCompatActivity() {
@@ -18,10 +18,10 @@ class SearchActivity : AppCompatActivity() {
     /**
      * Todo Bonus
      * handle no internet
-     * support portrait and landscape
      * Write documentation
      * Add swipe to refresh
      * More Unit tests
+     * Cache responses on the search screen
      * Night mode
      * Shared element transition for image press to detail view
      */
@@ -46,10 +46,6 @@ class SearchActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         searchViewModel.photos.observe(this, { photos ->
-            if (photos.isNullOrEmpty()) { //todo this is showing on start of the app
-                Toast.makeText(this, getString(R.string.no_search_results), Toast.LENGTH_LONG)
-                    .show()
-            }
             adapter.submitList(photos)
         })
 
@@ -59,9 +55,12 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchViewModel.networkState?.observe(this, {
-            progressBar.isVisible = it == State.LOADING
-            if (it == State.ERROR) {
+            progressBar.isVisible = it == NetworkState.LOADING
+            if (it == NetworkState.ERROR) {
                 Toast.makeText(this, getString(R.string.search_error), Toast.LENGTH_LONG).show()
+            } else if (it == NetworkState.ZERORESULTS) {
+                Toast.makeText(this, getString(R.string.no_search_results), Toast.LENGTH_LONG)
+                    .show()
             }
         })
     }
