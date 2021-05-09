@@ -15,6 +15,7 @@
         <activity
             android:name="com.guvyerhopkins.livefront.ui.search.SearchActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.LiveFront.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -8,8 +8,10 @@
     <ImageView
         android:id="@+id/grid_item_iv"
         android:layout_width="0dp"
+        android:contentDescription="@string/content_description_image_of_search_query"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
+        android:transitionName="@string/image_search_transition"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

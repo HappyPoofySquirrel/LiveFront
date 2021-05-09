@@ -5,4 +5,6 @@
     <string name="search_error">An error has occured when fetching cards</string>
     <string name="image_photographer">"Photographer: %1$s"</string>
     <string name="image_photographer_url">"Photographer Url: %1$s"</string>
+    <string name="image_search_transition">imageSearch</string>
+    <string name="content_description_image_of_search_query">Image of search query</string>
 </resources>

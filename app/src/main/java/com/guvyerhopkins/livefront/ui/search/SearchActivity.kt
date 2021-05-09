@@ -5,6 +5,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -13,17 +14,17 @@ import com.guvyerhopkins.livefront.R
 import com.guvyerhopkins.livefront.core.network.NetworkState
 import com.guvyerhopkins.livefront.ui.detail.ImageDetailActivity
 
+
 class SearchActivity : AppCompatActivity() {
 
     /**
      * Todo Bonus
-     * handle no internet
+     * Handle no internet
      * Write documentation
      * Add swipe to refresh
      * More Unit tests
      * Cache responses on the search screen
      * Night mode
-     * Shared element transition for image press to detail view
      */
     private lateinit var searchViewModel: SearchViewModel
 
@@ -39,8 +40,16 @@ class SearchActivity : AppCompatActivity() {
         searchViewModel =
             ViewModelProvider(this, SearchViewModelFactory()).get(SearchViewModel::class.java)
         val adapter = PhotoGridAdapter { photo, imageView ->
-            //keep imageview parameter for use with a shared element transition
-            startActivity(ImageDetailActivity.createIntent(this, photo))
+            val activityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this,
+                    imageView,
+                    getString(R.string.image_search_transition)
+                )
+            startActivity(
+                ImageDetailActivity.createIntent(this, photo),
+                activityOptionsCompat.toBundle()
+            )
         }
         val recyclerView = findViewById<RecyclerView>(R.id.search_rv)
         recyclerView.adapter = adapter

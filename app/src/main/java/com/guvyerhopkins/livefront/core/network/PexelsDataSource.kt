@@ -17,8 +17,10 @@ class PexelsDataSource(private val query: String, private val scope: CoroutineSc
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Photo>
     ) {
-        executeQuery(1, params.requestedLoadSize) {
-            callback.onResult(it, null, 2)
+        if (query.isNotEmpty()) {//this prevents searching on initialization
+            executeQuery(1, params.requestedLoadSize) {
+                callback.onResult(it, null, 2)
+            }
         }
     }
 
