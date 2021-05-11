@@ -10,6 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * I used these resources to architect the networking layer using coroutines and the paging library
+ * https://proandroiddev.com/playing-with-4f21bc67a7f9
+ * https://github.com/PhilippeBoisney/GithubApp
+ */
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     .client(OkHttpClient.Builder().apply {

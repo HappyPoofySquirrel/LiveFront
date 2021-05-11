@@ -13,7 +13,10 @@ import com.guvyerhopkins.livefront.core.extensions.clickableSpan
 import com.guvyerhopkins.livefront.core.network.Photo
 import com.jsibbold.zoomage.ZoomageView
 
-
+/**
+ * Using this library for a zoomable image
+ * https://github.com/jsibbold/zoomage
+ */
 private const val IMAGE_KEY = "IMAGE_KEY"
 
 class ImageDetailActivity : AppCompatActivity() {

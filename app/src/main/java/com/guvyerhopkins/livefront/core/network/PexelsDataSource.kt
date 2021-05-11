@@ -6,6 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.*
 
+/**
+ * I used these resources to architect the networking layer using coroutines and the paging library
+ * https://proandroiddev.com/playing-with-4f21bc67a7f9
+ * https://github.com/PhilippeBoisney/GithubApp
+ */
+
 class PexelsDataSource(private val query: String, private val scope: CoroutineScope) :
     PageKeyedDataSource<Int, Photo>() {
 
