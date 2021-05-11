@@ -41,7 +41,7 @@ class ImageDetailActivity : AppCompatActivity() {
             photo.photographerUrl
         )
 
-        photographerUrlTv.clickableSpan(photo.photographerUrl) {
+        photographerUrlTv.clickableSpan(photo.photographerUrl ?: "") {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(photo.photographerUrl)))
         }
 

@@ -20,7 +20,7 @@ data class PexelsResponse(
 @Parcelize
 data class Photo(
     @SerializedName("avg_color")
-    val avgColor: String = "",
+    val avgColor: String? = "",
     @SerializedName("height")
     val height: Int = 0,
     @SerializedName("id")
@@ -28,15 +28,15 @@ data class Photo(
     @SerializedName("liked")
     val liked: Boolean = false,
     @SerializedName("photographer")
-    val photographer: String = "",
+    val photographer: String? = "",
     @SerializedName("photographer_id")
     val photographerId: Int = 0,
     @SerializedName("photographer_url")
-    val photographerUrl: String = "",
+    val photographerUrl: String? = "",
     @SerializedName("src")
     val src: Src = Src(),
     @SerializedName("url")
-    val url: String = "",
+    val url: String? = "",
     @SerializedName("width")
     val width: Int = 0
 ) : Parcelable
@@ -44,19 +44,19 @@ data class Photo(
 @Parcelize
 data class Src(
     @SerializedName("landscape")
-    val landscape: String = "",
+    val landscape: String? = "",
     @SerializedName("large")
-    val large: String = "",
+    val large: String? = "",
     @SerializedName("large2x")
-    val large2x: String = "",
+    val large2x: String? = "",
     @SerializedName("medium")
-    val medium: String = "",
+    val medium: String? = "",
     @SerializedName("original")
-    val original: String = "",
+    val original: String? = "",
     @SerializedName("portrait")
-    val portrait: String = "",
+    val portrait: String? = "",
     @SerializedName("small")
-    val small: String = "",
+    val small: String? = "",
     @SerializedName("tiny")
-    val tiny: String = ""
+    val tiny: String? = ""
 ) : Parcelable

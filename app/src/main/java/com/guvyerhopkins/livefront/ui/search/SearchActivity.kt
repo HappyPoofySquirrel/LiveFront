@@ -22,10 +22,11 @@ class SearchActivity : AppCompatActivity() {
      * Handle no internet
      * Write documentation
      * Add swipe to refresh
-     * More Unit tests
+     * More Unit and UI tests
      * Cache responses on the search screen
      * Night mode
      */
+
     private lateinit var searchViewModel: SearchViewModel
 
     private lateinit var progressBar: ProgressBar
