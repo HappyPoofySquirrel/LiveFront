@@ -7,10 +7,9 @@ import android.widget.ImageView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.size.Scale
 import com.guvyerhopkins.livefront.R
 import com.guvyerhopkins.livefront.core.network.Photo
+import com.squareup.picasso.Picasso
 
 class PhotoGridAdapter(private val onImagePressed: (Photo, ImageView) -> Unit) :
     PagedListAdapter<Photo, PhotoGridAdapter.PhotoGridViewHolder>(DiffCallback) {
@@ -38,11 +37,10 @@ class PhotoGridAdapter(private val onImagePressed: (Photo, ImageView) -> Unit) :
 
         fun bind(photo: Photo) {
             val imageView = view.findViewById<ImageView>(R.id.grid_item_iv)
-            imageView.load(photo.src?.small) {
-                scale(Scale.FILL)
-                crossfade(true)
-                placeholder(R.drawable.ic_image_placeholder)
-            }
+            Picasso.get()
+                .load(photo.src?.small)
+                .placeholder(R.drawable.ic_image_placeholder)
+                .into(imageView)
 
             imageView.setOnClickListener { onImagePressed.invoke(photo, imageView) }
         }

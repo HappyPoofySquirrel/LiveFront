@@ -7,11 +7,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import coil.load
 import com.guvyerhopkins.livefront.R
 import com.guvyerhopkins.livefront.core.extensions.clickableSpan
 import com.guvyerhopkins.livefront.core.network.Photo
 import com.jsibbold.zoomage.ZoomageView
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 
 /**
  * Using this library for a zoomable image
@@ -33,9 +34,22 @@ class ImageDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_detail)
         actionBar?.setDisplayHomeAsUpEnabled(true)
+        postponeEnterTransition()
 
         val photo = intent.extras!!.getParcelable<Photo>(IMAGE_KEY)!!
-        findViewById<ZoomageView>(R.id.details_iv).load(photo.src?.large)
+        Picasso.get() //I would like to address the additional flashing that is happending
+            .load(photo.src?.large)
+            .placeholder(R.drawable.ic_image_placeholder)
+            .into(findViewById<ZoomageView>(R.id.details_iv), object : Callback {
+                override fun onSuccess() {
+                    startPostponedEnterTransition()
+                }
+
+                override fun onError(e: Exception?) {
+                    //tbd what needs to be done here
+                }
+            })
+
         findViewById<TextView>(R.id.details_photographer_tv).text =
             getString(R.string.image_photographer, photo.photographer)
         val photographerUrlTv = findViewById<TextView>(R.id.details_photographer_url_tv)
