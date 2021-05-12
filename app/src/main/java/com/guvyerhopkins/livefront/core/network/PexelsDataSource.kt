@@ -49,11 +49,6 @@ class PexelsDataSource(private val query: String, private val scope: CoroutineSc
         scope.launch(getJobErrorHandler() + supervisorJob) {
             delay(200) // To handle user is still typing
             val photos = repo.getPhotos(page, perPage, query)
-
-            if (photos.isEmpty()) {
-                networkState.postValue(NetworkState.ZERORESULTS)
-            }
-
             networkState.postValue(NetworkState.SUCCESS)
             callback(photos)
         }

@@ -38,7 +38,7 @@ class PhotoGridAdapter(private val onImagePressed: (Photo, ImageView) -> Unit) :
 
         fun bind(photo: Photo) {
             val imageView = view.findViewById<ImageView>(R.id.grid_item_iv)
-            imageView.load(photo.src.small) {
+            imageView.load(photo.src?.small) {
                 scale(Scale.FILL)
                 crossfade(true)
                 placeholder(R.drawable.ic_image_placeholder)

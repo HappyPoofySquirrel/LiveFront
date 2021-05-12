@@ -9,6 +9,7 @@
         android:id="@+id/details_iv"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:transitionName="@string/image_search_transition"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:zoomage_doubleTapToZoom="true"

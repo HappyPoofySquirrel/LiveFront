@@ -22,7 +22,7 @@ class SearchViewModel(
     private val dataSourceFactory: PexelsDataSourceFactory = PexelsDataSourceFactory(scope = ioScope)
 ) : ViewModel() {
 
-    val networkState: LiveData<NetworkState>? =
+    val networkState: LiveData<NetworkState> =
         switchMap(dataSourceFactory.source) { it.getNetworkState() }
 
     val photos = LivePagedListBuilder(

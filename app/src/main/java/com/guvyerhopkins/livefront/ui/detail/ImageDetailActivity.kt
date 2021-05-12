@@ -35,7 +35,7 @@ class ImageDetailActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val photo = intent.extras!!.getParcelable<Photo>(IMAGE_KEY)!!
-        findViewById<ZoomageView>(R.id.details_iv).load(photo.src.large)
+        findViewById<ZoomageView>(R.id.details_iv).load(photo.src?.large)
         findViewById<TextView>(R.id.details_photographer_tv).text =
             getString(R.string.image_photographer, photo.photographer)
         val photographerUrlTv = findViewById<TextView>(R.id.details_photographer_url_tv)

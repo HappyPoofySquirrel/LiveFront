@@ -1,5 +1,6 @@
 package com.guvyerhopkins.livefront.core.network
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import kotlinx.coroutines.CoroutineScope
@@ -15,16 +16,17 @@ class PexelsDataSourceFactory(
     private val scope: CoroutineScope
 ) : DataSource.Factory<Int, Photo>() {
 
-    val source = MutableLiveData<PexelsDataSource>()
+    private val _source = MutableLiveData<PexelsDataSource>()
+    val source: LiveData<PexelsDataSource> = _source
 
     override fun create(): DataSource<Int, Photo> {
         val source = PexelsDataSource(query, scope)
-        this.source.postValue(source)
+        this._source.postValue(source)
         return source
     }
 
     fun updateQuery(query: String) {
         this.query = query
-        source.value?.refresh()
+        _source.value?.refresh()
     }
 }

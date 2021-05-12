@@ -7,5 +7,5 @@ package com.guvyerhopkins.livefront.core.network
  */
 
 enum class NetworkState {
-    SUCCESS, LOADING, ERROR, NOINTERNET, ZERORESULTS
+    SUCCESS, LOADING, ERROR, NOINTERNET
 }

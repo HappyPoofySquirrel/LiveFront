@@ -57,6 +57,10 @@ class SearchActivity : AppCompatActivity() {
 
         searchViewModel.photos.observe(this, { photos ->
             adapter.submitList(photos)
+            if (photos.isEmpty()) {
+                Toast.makeText(this, getString(R.string.no_search_results), Toast.LENGTH_LONG)
+                    .show()
+            }
         })
 
         val editText = findViewById<EditText>(R.id.search_et)
@@ -64,13 +68,10 @@ class SearchActivity : AppCompatActivity() {
             searchViewModel.search(it.toString())
         }
 
-        searchViewModel.networkState?.observe(this, {
+        searchViewModel.networkState.observe(this, {
             progressBar.isVisible = it == NetworkState.LOADING
             if (it == NetworkState.ERROR) {
                 Toast.makeText(this, getString(R.string.search_error), Toast.LENGTH_LONG).show()
-            } else if (it == NetworkState.ZERORESULTS) {
-                Toast.makeText(this, getString(R.string.no_search_results), Toast.LENGTH_LONG)
-                    .show()
             }
         })
     }
