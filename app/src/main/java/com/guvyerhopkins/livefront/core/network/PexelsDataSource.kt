@@ -12,12 +12,15 @@ import kotlinx.coroutines.*
  * https://github.com/PhilippeBoisney/GithubApp
  */
 
-class PexelsDataSource(private val query: String, private val scope: CoroutineScope) :
-    PageKeyedDataSource<Int, Photo>() {
+class PexelsDataSource(
+    private val query: String,
+    private val scope: CoroutineScope,
+    private val pexelsApiService: PexelsApiService = PexelsApi.retrofitService,
+    private val repo: PexelsRepository = PexelsRepository(pexelsApiService),
+    private var supervisorJob: Job = SupervisorJob()
+) : PageKeyedDataSource<Int, Photo>() {
 
-    private val repo = PexelsRepository(PexelsApi.retrofitService)
-    private val networkState = MutableLiveData<NetworkState>()
-    private var supervisorJob = SupervisorJob()
+    private val _networkState = MutableLiveData<NetworkState>()
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
@@ -45,18 +48,18 @@ class PexelsDataSource(private val query: String, private val scope: CoroutineSc
     }
 
     private fun executeQuery(page: Int, perPage: Int, callback: (List<Photo>) -> Unit) {
-        networkState.postValue(NetworkState.LOADING)
+        _networkState.postValue(NetworkState.LOADING)
         scope.launch(getJobErrorHandler() + supervisorJob) {
             delay(200) // To handle user is still typing
             val photos = repo.getPhotos(page, perPage, query)
-            networkState.postValue(NetworkState.SUCCESS)
+            _networkState.postValue(NetworkState.SUCCESS)
             callback(photos)
         }
     }
 
     private fun getJobErrorHandler() = CoroutineExceptionHandler { _, e ->
         Log.e(PexelsResponse::class.java.simpleName, "An error happened: $e")
-        networkState.postValue(NetworkState.ERROR)
+        _networkState.postValue(NetworkState.ERROR)
     }
 
     override fun invalidate() {
@@ -67,5 +70,5 @@ class PexelsDataSource(private val query: String, private val scope: CoroutineSc
     fun refresh() = this.invalidate()
 
     fun getNetworkState(): LiveData<NetworkState> =
-        networkState
+        _networkState
 }

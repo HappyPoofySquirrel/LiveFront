@@ -13,16 +13,16 @@ import kotlinx.coroutines.CoroutineScope
 
 class PexelsDataSourceFactory(
     var query: String = "pugs", //lets set a fun initial search term
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val pexelsDataSource: PexelsDataSource = PexelsDataSource(query, scope)
 ) : DataSource.Factory<Int, Photo>() {
 
     private val _source = MutableLiveData<PexelsDataSource>()
     val source: LiveData<PexelsDataSource> = _source
 
     override fun create(): DataSource<Int, Photo> {
-        val source = PexelsDataSource(query, scope)
-        this._source.postValue(source)
-        return source
+        this._source.postValue(pexelsDataSource)
+        return pexelsDataSource
     }
 
     fun updateQuery(query: String) {
